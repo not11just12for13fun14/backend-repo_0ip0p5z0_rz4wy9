@@ -11,8 +11,8 @@ Model name is converted to lowercase for the collection name:
 - BlogPost -> "blogs" collection
 """
 
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field, AnyHttpUrl
+from typing import Optional, List
 
 # Example schemas (replace with your own):
 
@@ -37,6 +37,11 @@ class Product(BaseModel):
     price: float = Field(..., ge=0, description="Price in dollars")
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
+    image_url: Optional[str] = Field(None, description="Image URL for the product")
+    animal: Optional[str] = Field(None, description="Primary animal this product is for (dogs, cats, fish, birds, small-pets)")
+    colors: Optional[List[str]] = Field(default_factory=list, description="Vivid color tags for playful UI themes")
+    rating: Optional[float] = Field(4.5, ge=0, le=5, description="Average rating")
+    tags: Optional[List[str]] = Field(default_factory=list, description="Free-form tags like neon, glitter, eco, premium")
 
 # Add your own schemas here:
 # --------------------------------------------------
